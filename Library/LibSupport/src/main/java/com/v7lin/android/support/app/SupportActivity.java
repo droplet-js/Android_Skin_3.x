@@ -23,6 +23,7 @@ import com.v7lin.android.env.app.EnvSkinActivity;
 import com.v7lin.android.support.R;
 
 import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * 
@@ -184,7 +185,8 @@ public class SupportActivity extends EnvSkinActivity implements SystemResMap {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (TextUtils.equals(getIntent().getAction(), Intent.CATEGORY_LAUNCHER)) {
+		Set<String> categories = getIntent().getCategories();
+		if (categories != null && !categories.isEmpty() && categories.contains(Intent.CATEGORY_LAUNCHER)) {
 			if (keyCode == KeyEvent.KEYCODE_BACK) {
 				if ((System.currentTimeMillis() - mLastExitTime) > DURATION_DOUBLE_EXIT) {
 					exitTips();

@@ -12,19 +12,20 @@ Android_Skin 是基于资源引用的唯一性而搭建的替换同名同类型�
 
 # 缺陷
 1.最致命的缺陷是对普通的 new View 的支持，稍显不足。
-     不过对 new CompatView 的支持力，绝对是杆杆的。
-     在替换法里面 CompatView 是用来替换 View 的，因为换肤的实现是在 CompatView 里面实现的。
+不过对 new CompatView 的支持力，绝对是杆杆的。
+在替换法里面 CompatView 是用来替换 View 的，因为换肤的实现是在 CompatView 里面实现的。
 
 2.对工程里的自定义视图，建议是改变继承，继承相对应的 CompatView，这样可以直接让自定义视图拥有换肤功能。
 
 3.要实现对 Library 之外的视图属性换肤功能比较麻烦。
-     首先要继承相应视图，实现 EnvCallback 和 XUICall 两个接口；其次重写相应换肤属性的函数，以实现换肤资源引用的替换和移除；最后可能还要写一个 EnvUIChanger。
+首先要继承相应视图，实现 EnvCallback 和 XUICall 两个接口；其次重写相应换肤属性的函数，以实现换肤资源引用的替换和移除；最后可能还要写一个 EnvUIChanger。
 
 # 注意事项
 Library使用相关注意事项，请认真阅读《Library说明文档.doc》
 
 # 效果
 1.编译 demo，查看效果
+
 2.下载体验麦潮(http://www.varicom.im/)。
 
 # BUG 修复
@@ -40,6 +41,7 @@ Library使用相关注意事项，请认真阅读《Library说明文档.doc》
 
 # 重大版本迭代
 2015.7.3：Library 由 2.2 升级到 2.4。新增EnvViewMap。支持额外视图替换（AppCompat的支持不在话下，具体实现请阅读《Library说明文档.doc》）。
+
 2016.1.6：Library 由 2.x 升级到 3.x。换肤方案变异的代理流，转换成变异的代理流 + Bridge流结合。去除重写LayoutInflater、Context、Resource等。
 
 # SDK 应用
@@ -55,9 +57,14 @@ eg. EnvResManager.getGlobal().setSkinChecker(VerSkinChecker.newInstance(1000, fa
 
 3.继承EnvSkinActivity，实现动态换肤
 
+eg.
+
 List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, new SkinExtraCreator());
+
 SkinData data = skinDatas.get(new Random().nextInt(skinDatas.size()));
+
 SharedPrefSetup.getGlobal().setSkinPath(MainActivity.this, data.getSkinPath());
+
 scheduleSkin();
 
 
@@ -74,7 +81,11 @@ scheduleSkin();
 
 2).替换 Library 里面记住的引用的资源，请调用相应视图里面的与resid相关的属性设置函数。去除 Library 里面记住的引用资源，请调用相应视图里面的与resid无关的属性设置函数。
 
-如：调用 setBackgroundResource(int resid) 函数可以将记住“可换肤的A资源”变成记住“可换肤的B资源”。调用 setBackgroundDrawable(Drawable background) 函数可以将记住“可换肤的A资源”，变成不记住任何资源。
+eg.
+
+调用 setBackgroundResource(int resid) 函数可以将记住“可换肤的A资源”变成记住“可换肤的B资源”。
+
+调用 setBackgroundDrawable(Drawable background) 函数可以将记住“可换肤的A资源”，变成不记住任何资源。
 
 3).凡是 xml 类型的Color或Drawable资源，不论是 selector 还是 shape 等，有引用到 @color/*** 的需要换肤的颜色资源或@drawable/*** 的需要换肤的图片资源，这个 xml 需要拷贝一份到皮肤包里。这里涉及到 Resource 的缓存机制知识。
 
