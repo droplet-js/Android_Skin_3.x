@@ -44,30 +44,47 @@ Library使用相关注意事项，请认真阅读《Library说明文档.doc》
 
 # SDK 应用
 1.环境设置 EnvSetup: Library 提供了三种环境设置 NormalEnvSetup、NullEnvSetup 和 SharedPrefSetup。推荐使用 SharedPrefSetup
+
 eg. EnvResManager.getGlobal().setEnvSetup(SharedPrefSetup.getGlobal());
 
+
 2.皮肤校验机制 SkinChecker: 受限于Library的安全机制，皮肤包校验机制一定要去校验皮肤包的包名。Library 提供了两种 NormalSkinChecker（校验皮肤包名） 和 VerSkinChecker（校验皮肤包名和皮肤版本号）。推荐使用 VerSkinChecker。
+
 eg. EnvResManager.getGlobal().setSkinChecker(VerSkinChecker.newInstance(1000, false));
 
+
 3.继承EnvSkinActivity，实现动态换肤
+
 List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, new SkinExtraCreator());
 SkinData data = skinDatas.get(new Random().nextInt(skinDatas.size()));
 SharedPrefSetup.getGlobal().setSkinPath(MainActivity.this, data.getSkinPath());
 scheduleSkin();
 
+
 4.添加额外视图支持
+
 1).实现已有属性换肤功能，可以参照 CompatStatusBar，简单继承 Compat 视图即可
+
 2).添加额外属性换肤功能，可以参照 CompatSwitchCompat，继承 SwitchCompat 添加额外属性换肤功能，且需使用 EnvViewMap 类中若干方法，注册需要换肤的视图
 
+
 5.使用注意
+
 1).Library 原生只支持 xml 布局里的视图换肤，且这些视图都是Android_SDK 提供的视图，非 Android_SDK 提供的视图，需要继承 Library 里的 Compat*** 视图。其他的换肤，需要重写 scheduleSkin() 补充所需换肤内容。
+
 2).替换 Library 里面记住的引用的资源，请调用相应视图里面的与resid相关的属性设置函数。去除 Library 里面记住的引用资源，请调用相应视图里面的与resid无关的属性设置函数。
+
 如：调用 setBackgroundResource(int resid) 函数可以将记住“可换肤的A资源”变成记住“可换肤的B资源”。调用 setBackgroundDrawable(Drawable background) 函数可以将记住“可换肤的A资源”，变成不记住任何资源。
+
 3).凡是 xml 类型的Color或Drawable资源，不论是 selector 还是 shape 等，有引用到 @color/*** 的需要换肤的颜色资源或@drawable/*** 的需要换肤的图片资源，这个 xml 需要拷贝一份到皮肤包里。这里涉及到 Resource 的缓存机制知识。
+
 4).若出现下面这种情况，则引用到 color_2 的视图，其实际换肤里保存的是 color_1 的引用，即改变 color_1 才会使得应用 color_2 的视图得以换肤。在 drawable 里同样适用。
+
    <color name="color_1">#ff0000</color>
    <color name="color_2">@color/color_1</color>
+   
 5).皮肤包的后缀名不要用 .apk，用其他任意后缀名都可以，防止用户点击安装皮肤包。另外，皮肤包里不需要任何类，导皮肤包时，最好是导未签名包。
+
 
 # License
 
