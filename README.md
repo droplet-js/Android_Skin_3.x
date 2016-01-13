@@ -79,9 +79,6 @@ scheduleSkin();
 3).凡是 xml 类型的Color或Drawable资源，不论是 selector 还是 shape 等，有引用到 @color/*** 的需要换肤的颜色资源或@drawable/*** 的需要换肤的图片资源，这个 xml 需要拷贝一份到皮肤包里。这里涉及到 Resource 的缓存机制知识。
 
 4).若出现下面这种情况，则引用到 color_2 的视图，其实际换肤里保存的是 color_1 的引用，即改变 color_1 才会使得应用 color_2 的视图得以换肤。在 drawable 里同样适用。
-
-   <color name="color_1">#ff0000</color>
-   <color name="color_2">@color/color_1</color>
    
 5).皮肤包的后缀名不要用 .apk，用其他任意后缀名都可以，防止用户点击安装皮肤包。另外，皮肤包里不需要任何类，导皮肤包时，最好是导未签名包。
 
