@@ -1,0 +1,4 @@
+include ':demo', ':LibEnvUI', ':LibSkin', ':LibSupport'
+project(':LibEnvUI').projectDir = new File('Library/LibEnvUI')
+project(':LibSkin').projectDir = new File('Library/LibSkin')
+project(':LibSupport').projectDir = new File('Library/LibSupport')

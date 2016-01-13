@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android_Skin_3.x.iml" filepath="$PROJECT_DIR$/Android_Skin_3.x.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library/LibEnvUI/LibEnvUI.iml" filepath="$PROJECT_DIR$/Library/LibEnvUI/LibEnvUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library/LibSkin/LibSkin.iml" filepath="$PROJECT_DIR$/Library/LibSkin/LibSkin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library/LibSupport/LibSupport.iml" filepath="$PROJECT_DIR$/Library/LibSupport/LibSupport.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+    </modules>
+  </component>
+</project>

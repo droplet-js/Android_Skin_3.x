@@ -1,0 +1,33 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.v7lin.skin"
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        // <-- 自定义若干属性 --> //
+        // 文件存放根路径
+        buildConfigField "String", "PATH_ROOT", "\"/v7lin\""
+
+        // 皮肤
+        buildConfigField "int", "SKIN_VER", "1000"
+        buildConfigField "boolean", "SKIN_CHECK_PKG", "false"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':LibSupport')
+}

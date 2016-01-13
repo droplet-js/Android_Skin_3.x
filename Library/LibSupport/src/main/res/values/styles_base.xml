@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- AppCompat -->
+    <style name="Widget.Style.Design.ToolBar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <!-- Design -->
+
+    <style name="Widget.Style.Design.FloatingActionButton" parent="Widget.Design.FloatingActionButton">
+
+    </style>
+
+    <style name="Widget.Style.Design.ScrimInsetsFrameLayout" parent="Widget.Design.ScrimInsetsFrameLayout">
+
+    </style>
+
+    <style name="Widget.Style.Design.NavigationView" parent="Widget.Design.NavigationView">
+
+    </style>
+
+    <style name="Widget.Style.Design.TabLayout" parent="Widget.Design.TabLayout">
+
+    </style>
+
+    <style name="Widget.Style.Design.TextInputLayout" parent="Widget.Design.TextInputLayout">
+
+    </style>
+
+    <style name="Widget.Style.Design.Snackbar" parent="Widget.Design.Snackbar">
+
+    </style>
+
+    <style name="Widget.Style.CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
+
+    </style>
+
+    <style name="Widget.Style.AppBarLayout" parent="Widget.Design.AppBarLayout">
+        
+    </style>
+
+    <style name="Widget.Style.CoordinatorLayout" parent="Widget.Design.CoordinatorLayout">
+
+    </style>
+
+</resources>

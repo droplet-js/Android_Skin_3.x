@@ -1,0 +1,76 @@
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        //applicationId "com.vari.skin"
+        minSdkVersion 7
+        targetSdkVersion 23
+        versionCode 1000
+        versionName "1.0"
+    }
+
+    // 签名信息
+    signingConfigs {
+        debug {
+            // No debug config
+        }
+        release {
+            storeFile file("infos/libskin.jks")
+            storePassword "libskin"
+            keyAlias "libskin"
+            keyPassword "libskin"
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 签名
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // 签名
+            signingConfig signingConfigs.release
+        }
+    }
+
+    // 多渠道打包（多皮肤）
+    productFlavors {
+//        // 不撸蓝
+//        blue {}
+//        // 小米橙
+//        orange {}
+//        // 脑残粉
+//        pink {}
+//        // 闷骚紫
+//        purple {}
+//        // 雾霾灰
+//        grey {}
+//        // 高端黑
+//        black {}
+//        // 夜间模式
+//        night {}
+    }
+
+//    // 文件批量改名
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.skin")
+//                output.outputFile = new File(outputFile.parent, fileName)
+//            }
+//        }
+//    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}
