@@ -20,9 +20,6 @@ Android_Skin 是基于资源引用的唯一性而搭建的替换同名同类型�
 3.要实现对 Library 之外的视图属性换肤功能比较麻烦。
 首先要继承相应视图，实现 EnvCallback 和 XUICall 两个接口；其次重写相应换肤属性的函数，以实现换肤资源引用的替换和移除；最后可能还要写一个 EnvUIChanger。
 
-# 注意事项
-Library使用相关注意事项，请认真阅读《Library说明文档.doc》
-
 # 效果
 1.编译 demo，查看效果
 
@@ -40,9 +37,9 @@ Library使用相关注意事项，请认真阅读《Library说明文档.doc》
 2015.11.3：修正 5.x 上资源映射错误，并兼容 6.x 上取 Color 和 ColorStateList 资源（“麦潮”App的Android研发反馈）
 
 # 重大版本迭代
-2015.7.3：Library 由 2.2 升级到 2.4。新增EnvViewMap。支持额外视图替换（AppCompat的支持不在话下，具体实现请阅读《Library说明文档.doc》）。
+2015.7.3：Library 由 2.2 升级到 2.4。新增EnvViewMap。支持额外视图替换（AppCompat的支持不在话下）。
 
-2016.1.6：Library 由 2.x 升级到 3.x。换肤方案变异的代理流，转换成变异的代理流 + Bridge流结合。去除重写LayoutInflater、Context、Resource等。
+2016.1.6：Library 由 2.x 升级到 3.x。去除重写LayoutInflater、Context。
 
 # SDK 应用
 1.环境设置 EnvSetup: Library 提供了三种环境设置 NormalEnvSetup、NullEnvSetup 和 SharedPrefSetup。推荐使用 SharedPrefSetup
