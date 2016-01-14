@@ -44,26 +44,27 @@ Android_Skin 是基于资源引用的唯一性而搭建的替换同名同类型�
 # SDK 应用
 1.环境设置 EnvSetup: Library 提供了三种环境设置 NormalEnvSetup、NullEnvSetup 和 SharedPrefSetup。推荐使用 SharedPrefSetup
 
-eg. EnvResManager.getGlobal().setEnvSetup(SharedPrefSetup.getGlobal());
-
+eg.
+```Java
+EnvResManager.getGlobal().setEnvSetup(SharedPrefSetup.getGlobal());
+```
 
 2.皮肤校验机制 SkinChecker: 受限于Library的安全机制，皮肤包校验机制一定要去校验皮肤包的包名。Library 提供了两种 NormalSkinChecker（校验皮肤包名） 和 VerSkinChecker（校验皮肤包名和皮肤版本号）。推荐使用 VerSkinChecker。
 
-eg. EnvResManager.getGlobal().setSkinChecker(VerSkinChecker.newInstance(1000, false));
-
+eg.
+```Java
+EnvResManager.getGlobal().setSkinChecker(VerSkinChecker.newInstance(1000, false));
+```
 
 3.继承EnvSkinActivity，实现动态换肤
 
 eg.
-
+```Java
 List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, new SkinExtraCreator());
-
 SkinData data = skinDatas.get(new Random().nextInt(skinDatas.size()));
-
 SharedPrefSetup.getGlobal().setSkinPath(MainActivity.this, data.getSkinPath());
-
 scheduleSkin();
-
+```
 
 4.添加额外视图支持
 
@@ -90,6 +91,8 @@ eg.
    
 5).皮肤包的后缀名不要用 .apk，用其他任意后缀名都可以，防止用户点击安装皮肤包。另外，皮肤包里不需要任何类，导皮肤包时，最好是导未签名包。
 
+# 其他
+![](https://github.com/v7lin/Android_Skin_3.x/raw/master/art/Android_Skin_QQ_Group.png)
 
 # License
 
