@@ -48,7 +48,7 @@ public class EnvCompoundButtonChanger<CB extends CompoundButton, CBC extends XCo
                 EnvRes res = new EnvRes(resid);
                 mButtonEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleButtonDrawable(view, call);
+//                scheduleButtonDrawable(view, call);
                 break;
             }
         }

@@ -52,14 +52,14 @@ public class EnvAbsListViewChanger<ALV extends AbsListView, ALVC extends XAbsLis
                 EnvRes res = new EnvRes(resid);
                 mListSelectorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleSelector(view, call);
+//                scheduleSelector(view, call);
                 break;
             }
             case android.R.attr.cacheColorHint: {
                 EnvRes res = new EnvRes(resid);
                 mCacheColorHint = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCacheColorHint(view, call);
+//                scheduleCacheColorHint(view, call);
                 break;
             }
         }

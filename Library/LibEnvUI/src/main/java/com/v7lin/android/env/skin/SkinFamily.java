@@ -1,6 +1,5 @@
 package com.v7lin.android.env.skin;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -96,10 +95,23 @@ public class SkinFamily {
 		}
 	}
 
-	public int getColor(int id, Resources.Theme theme) throws Resources.NotFoundException {
+	public Drawable getDrawableForDensity(int id, int density, Resources.Theme theme) throws Resources.NotFoundException {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+				return mSkinRes.getDrawableForDensity(mapping.getResid(), density, theme);
+			} else {
+				return mSkinRes.getDrawableForDensity(mapping.getResid(), density);
+			}
+		} else {
+			throw new Resources.NotFoundException("Resource(Skin) is not valid.");
+		}
+	}
+
+	public int getColor(int id, Resources.Theme theme) throws Resources.NotFoundException {
+		EnvRes mapping = mappingSkinRes(id);
+		if (mapping != null && mapping.isValid()) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				return mSkinRes.getColor(mapping.getResid(), theme);
 			} else {
 				return mSkinRes.getColor(mapping.getResid());
@@ -112,7 +124,7 @@ public class SkinFamily {
 	public ColorStateList getColorStateList(int id, Resources.Theme theme) throws Resources.NotFoundException {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				return mSkinRes.getColorStateList(mapping.getResid(), theme);
 			} else {
 				return mSkinRes.getColorStateList(mapping.getResid());

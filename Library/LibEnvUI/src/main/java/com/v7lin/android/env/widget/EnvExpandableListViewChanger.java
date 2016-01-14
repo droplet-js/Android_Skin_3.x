@@ -57,21 +57,21 @@ public class EnvExpandableListViewChanger<ELV extends ExpandableListView, ELVC e
                 EnvRes res = new EnvRes(resid);
                 mGroupIndicatorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleGroupIndicator(view, call);
+//                scheduleGroupIndicator(view, call);
                 break;
             }
             case android.R.attr.childIndicator: {
                 EnvRes res = new EnvRes(resid);
                 mChildIndicatorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleChildIndicator(view, call);
+//                scheduleChildIndicator(view, call);
                 break;
             }
             case android.R.attr.childDivider: {
                 EnvRes res = new EnvRes(resid);
                 mChildDividerEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleChildDivider(view, call);
+//                scheduleChildDivider(view, call);
                 break;
             }
         }

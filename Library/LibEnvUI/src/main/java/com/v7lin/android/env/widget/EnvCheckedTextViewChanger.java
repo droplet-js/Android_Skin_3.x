@@ -48,7 +48,7 @@ public class EnvCheckedTextViewChanger<CTV extends CheckedTextView, CTVC extends
                 EnvRes res = new EnvRes(resid);
                 mCheckMarkEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCheckMarkDrawable(view, call);
+//                scheduleCheckMarkDrawable(view, call);
                 break;
             }
         }

@@ -54,14 +54,14 @@ public class EnvProgressBarChanger<PB extends ProgressBar, PBC extends XProgress
                 EnvRes res = new EnvRes(resid);
                 mIndeterminateDrawableEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleIndeterminateDrawable(view, call);
+//                scheduleIndeterminateDrawable(view, call);
                 break;
             }
             case android.R.attr.progressDrawable: {
                 EnvRes res = new EnvRes(resid);
                 mProgressDrawableEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleProgressDrawable(view, call);
+//                scheduleProgressDrawable(view, call);
                 break;
             }
         }

@@ -41,15 +41,7 @@ public class EnvActivityChanger<ACT extends Activity, ACTC extends XActivityCall
 
     @Override
     protected void onApplyAttr(ACT activity, ACTC call, int attr, int resid, boolean allowSysRes) {
-        switch (attr) {
-            case android.R.attr.windowBackground: {
-                EnvRes res = new EnvRes(resid);
-                mWindowBackgroundEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleWindowBackground(activity, call);
-                break;
-            }
-        }
     }
 
     @Override

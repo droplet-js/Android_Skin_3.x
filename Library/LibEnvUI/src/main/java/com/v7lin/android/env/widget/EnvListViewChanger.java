@@ -48,7 +48,7 @@ public class EnvListViewChanger<LV extends ListView, LVC extends XListViewCall> 
                 EnvRes res = new EnvRes(resid);
                 mDividerEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleDivider(view, call);
+//                scheduleDivider(view, call);
                 break;
             }
         }

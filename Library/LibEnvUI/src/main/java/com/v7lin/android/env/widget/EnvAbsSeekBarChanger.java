@@ -48,7 +48,7 @@ public class EnvAbsSeekBarChanger<ASB extends AbsSeekBar, ASBC extends XAbsSeekB
                 EnvRes res = new EnvRes(resid);
                 mThumbEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleThumb(view, call);
+//                scheduleThumb(view, call);
                 break;
             }
         }

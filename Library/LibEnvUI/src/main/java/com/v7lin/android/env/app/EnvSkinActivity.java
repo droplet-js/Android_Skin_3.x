@@ -2,6 +2,7 @@ package com.v7lin.android.env.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -11,6 +12,7 @@ import android.view.View;
 import com.v7lin.android.app.SuperActivity;
 import com.v7lin.android.env.EnvResBridge;
 import com.v7lin.android.env.EnvResManager;
+import com.v7lin.android.env.EnvSkinResourcesWrapper;
 import com.v7lin.android.env.SystemResMap;
 import com.v7lin.android.env.EnvCallback;
 import com.v7lin.android.env.widget.EnvUIChanger;
@@ -40,6 +42,8 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 
 	private EnvResBridge mEnvResBridge;
 
+	private EnvSkinResourcesWrapper mEnvSkinResourcesWrapper;
+
 	private EnvUIChanger<Activity, XActivityCall> mEnvUIChanger;
 
 	@Override
@@ -50,7 +54,7 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 
 	private void ensureEnvUIBridge() {
 		if (mEnvResBridge == null) {
-			mEnvResBridge = new EnvResBridge(getBaseContext(), getResources(), EnvResManager.getGlobal());
+			mEnvResBridge = new EnvResBridge(getBaseContext(), super.getResources(), EnvResManager.getGlobal());
 		}
 	}
 
@@ -62,6 +66,14 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 		if (mEnvResBridge != null) {
 			mEnvResBridge.setSystemResMap(systemResMap);
 		}
+	}
+
+	@Override
+	public Resources getResources() {
+		if (mEnvSkinResourcesWrapper == null) {
+			mEnvSkinResourcesWrapper = new EnvSkinResourcesWrapper(super.getResources(), getEnvResBridge());
+		}
+		return mEnvSkinResourcesWrapper;
 	}
 
 	@Override

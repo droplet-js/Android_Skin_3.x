@@ -179,6 +179,27 @@ public class EnvResBridge {
         }
     }
 
+    public Drawable getDrawableForDensity(int id, int density, Resources.Theme theme) throws Resources.NotFoundException {
+        ensureSkinFamily();
+        final EnvRes mapping = mappingSystemRes(id);
+        final int resid = mapping != null && mapping.isValid() ? mapping.getResid() : id;
+        if (mSkinFamily != null) {
+            String packageName = mOriginalRes.getResourcePackageName(resid);
+            if (TextUtils.equals(packageName, mPackageName)) {
+                // 换
+                try {
+                    return mSkinFamily.getDrawableForDensity(resid, density, theme);
+                } catch (Resources.NotFoundException e) {
+                }
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return mOriginalRes.getDrawableForDensity(resid, density, theme);
+        } else {
+            return mOriginalRes.getDrawableForDensity(id, density);
+        }
+    }
+
     public int getColor(int id, Resources.Theme theme) throws Resources.NotFoundException {
         ensureSkinFamily();
         final EnvRes mapping = mappingSystemRes(id);
@@ -193,7 +214,7 @@ public class EnvResBridge {
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return mOriginalRes.getColor(resid, theme);
         } else {
             return mOriginalRes.getColor(resid);
@@ -214,7 +235,7 @@ public class EnvResBridge {
                 }
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return mOriginalRes.getColorStateList(resid, theme);
         } else {
             return mOriginalRes.getColorStateList(resid);

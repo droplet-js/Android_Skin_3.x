@@ -46,33 +46,37 @@ public class EnvSwitchCompatChanger<SC extends SwitchCompat, SCC extends XSwitch
         if (attr == android.R.attr.thumb) {
             EnvRes res = new EnvRes(resid);
             mThumbEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+
+//            scheduleThumbDrawable(view, call);
         } else if (attr == R.attr.track) {
             EnvRes res = new EnvRes(resid);
             mTrackEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+
+//            scheduleTrackDrawable(view, call);
         }
     }
 
     @Override
     protected void onScheduleSkin(SC view, SCC call) {
         super.onScheduleSkin(view, call);
-        scheduleThumbDrawable(view);
-        scheduleTrackDrawable(view);
+        scheduleThumbDrawable(view, call);
+        scheduleTrackDrawable(view, call);
     }
 
-    private void scheduleThumbDrawable(SC view) {
+    private void scheduleThumbDrawable(SC view, SCC call) {
         if (mThumbEnvRes != null) {
             Drawable drawable = getDrawable(mThumbEnvRes.getResid());
             if (drawable != null) {
-                view.setThumbDrawable(drawable);
+                call.scheduleThumbDrawable(drawable);
             }
         }
     }
 
-    private void scheduleTrackDrawable(SC view) {
+    private void scheduleTrackDrawable(SC view, SCC call) {
         if (mTrackEnvRes != null) {
             Drawable drawable = getDrawable(mTrackEnvRes.getResid());
             if (drawable != null) {
-                view.setTrackDrawable(drawable);
+                call.scheduleTrackDrawable(drawable);
             }
         }
     }

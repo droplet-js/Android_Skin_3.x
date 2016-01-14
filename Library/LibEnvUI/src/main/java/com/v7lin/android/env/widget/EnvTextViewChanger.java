@@ -114,35 +114,35 @@ public class EnvTextViewChanger<TV extends TextView, TVC extends XTextViewCall> 
 
                 textAppearanceArray.recycle();
 
-                scheduleTextColor(view, call);
+//                scheduleTextColor(view, call);
                 break;
             }
             case android.R.attr.drawableLeft: {
                 EnvRes res = new EnvRes(resid);
                 mDrawableLeftEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCompoundDrawable(view, call);
+//                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableTop: {
                 EnvRes res = new EnvRes(resid);
                 mDrawableTopEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCompoundDrawable(view, call);
+//                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableRight: {
                 EnvRes res = new EnvRes(resid);
                 mDrawableRightEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCompoundDrawable(view, call);
+//                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableBottom: {
                 EnvRes res = new EnvRes(resid);
                 mDrawableBottomEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleCompoundDrawable(view, call);
+//                scheduleCompoundDrawable(view, call);
                 break;
             }
         }

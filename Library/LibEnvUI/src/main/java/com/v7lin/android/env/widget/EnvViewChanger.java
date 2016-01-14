@@ -84,14 +84,14 @@ public class EnvViewChanger<V extends View, VC extends XViewCall> extends EnvUIC
                 EnvRes res = new EnvRes(resid);
                 mBackgroundEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleBackground(view, call);
+//                scheduleBackground(view, call);
                 break;
             }
             case android.R.attr.foreground: {
                 EnvRes res = new EnvRes(resid);
                 mForegroundEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleForeground(view, call);
+//                scheduleForeground(view, call);
                 break;
             }
         }

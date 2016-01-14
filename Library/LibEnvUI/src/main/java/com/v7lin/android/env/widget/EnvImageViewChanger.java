@@ -48,7 +48,7 @@ public class EnvImageViewChanger<IV extends ImageView, IVC extends XImageViewCal
                 EnvRes res = new EnvRes(resid);
                 mSrcEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
 
-                scheduleSrc(view, call);
+//                scheduleSrc(view, call);
                 break;
             }
         }
