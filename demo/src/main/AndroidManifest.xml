@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.v7lin.skin">
+    package="com.v7lin.skin.demo">
 
     <!-- 应用安装限制 -->
     <!-- API: 11 Android 3.0 ActionBar targetSdkVersion >= 11 -->

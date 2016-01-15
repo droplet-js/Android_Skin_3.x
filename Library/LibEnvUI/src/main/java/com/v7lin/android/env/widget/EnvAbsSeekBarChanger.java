@@ -35,7 +35,7 @@ public class EnvAbsSeekBarChanger<ASB extends AbsSeekBar, ASBC extends XAbsSeekB
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mThumbEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.thumb), allowSysRes);
         array.recycle();
     }
@@ -46,7 +46,7 @@ public class EnvAbsSeekBarChanger<ASB extends AbsSeekBar, ASBC extends XAbsSeekB
         switch (attr) {
             case android.R.attr.thumb: {
                 EnvRes res = new EnvRes(resid);
-                mThumbEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mThumbEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleThumb(view, call);
                 break;

@@ -26,8 +26,6 @@ import com.v7lin.android.env.widget.XViewCall;
 import java.lang.reflect.Field;
 
 /**
- *
- *
  * @author v7lin E-mail:v7lin@qq.com
  */
 public class EnvSkinActivity extends SuperActivity implements XActivityCall {
@@ -44,22 +42,21 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 	};
 
 	private EnvResBridge mEnvResBridge;
-
 	private EnvUIChanger<Activity, XActivityCall> mEnvUIChanger;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		// 反射替换 Resources
-		ensureEnvUIBridge(newBase);
+		ensureEnvRes(newBase);
 		super.attachBaseContext(newBase);
 	}
 
-	private void ensureEnvUIBridge(Context newBase) {
+	private void ensureEnvRes(Context newBase) {
 		if (mEnvResBridge == null) {
 			mEnvResBridge = new EnvResBridge(newBase, newBase.getResources(), EnvResManager.getGlobal());
-			Resources skinResourcesWrapper = new EnvSkinResourcesWrapper(newBase.getResources(), mEnvResBridge);
 
 			try {
+				Resources skinResourcesWrapper = new EnvSkinResourcesWrapper(newBase.getResources(), mEnvResBridge);
 				Field mResourcesField = newBase.getClass().getDeclaredField("mResources");
 				mResourcesField.setAccessible(true);
 				mResourcesField.set(newBase, skinResourcesWrapper);

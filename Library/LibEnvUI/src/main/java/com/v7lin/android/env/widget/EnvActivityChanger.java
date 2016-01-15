@@ -34,7 +34,7 @@ public class EnvActivityChanger<ACT extends Activity, ACTC extends XActivityCall
 
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), ATTRS);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), ATTRS);
         mWindowBackgroundEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.windowBackground), allowSysRes);
         array.recycle();
     }

@@ -38,7 +38,7 @@ public class EnvAbsListViewChanger<ALV extends AbsListView, ALVC extends XAbsLis
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mListSelectorEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.listSelector), allowSysRes);
         mCacheColorHint = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.cacheColorHint), allowSysRes);
         array.recycle();
@@ -50,14 +50,14 @@ public class EnvAbsListViewChanger<ALV extends AbsListView, ALVC extends XAbsLis
         switch (attr) {
             case android.R.attr.listSelector: {
                 EnvRes res = new EnvRes(resid);
-                mListSelectorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mListSelectorEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleSelector(view, call);
                 break;
             }
             case android.R.attr.cacheColorHint: {
                 EnvRes res = new EnvRes(resid);
-                mCacheColorHint = res.isValid(getContext(), allowSysRes) ? res : null;
+                mCacheColorHint = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCacheColorHint(view, call);
                 break;

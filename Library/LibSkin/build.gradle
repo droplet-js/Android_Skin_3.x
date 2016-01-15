@@ -5,8 +5,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    // 默认发布版本（可控制默认皮肤）
+    defaultPublishConfig "orangeRelease"
+//    defaultPublishConfig "greyRelease"
+
     defaultConfig {
-        //applicationId "com.vari.skin"
+        //applicationId "com.v7lin.skin"
         minSdkVersion 7
         targetSdkVersion 23
         versionCode 1000
@@ -45,18 +49,18 @@ android {
     productFlavors {
 //        // 不撸蓝
 //        blue {}
-//        // 小米橙
-//        orange {}
-//        // 脑残粉
-//        pink {}
-//        // 闷骚紫
-//        purple {}
-//        // 雾霾灰
-//        grey {}
-//        // 高端黑
-//        black {}
-//        // 夜间模式
-//        night {}
+        // 小米橙
+        orange {}
+        // 脑残粉
+        pink {}
+        // 闷骚紫
+        purple {}
+        // 雾霾灰
+        grey {}
+        // 高端黑
+        black {}
+        // 夜间模式
+        night {}
     }
 
 //    // 文件批量改名

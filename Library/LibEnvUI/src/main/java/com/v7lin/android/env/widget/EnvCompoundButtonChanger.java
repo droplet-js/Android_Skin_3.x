@@ -35,7 +35,7 @@ public class EnvCompoundButtonChanger<CB extends CompoundButton, CBC extends XCo
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mButtonEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.button), allowSysRes);
         array.recycle();
     }
@@ -46,7 +46,7 @@ public class EnvCompoundButtonChanger<CB extends CompoundButton, CBC extends XCo
         switch (attr) {
             case android.R.attr.button: {
                 EnvRes res = new EnvRes(resid);
-                mButtonEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mButtonEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleButtonDrawable(view, call);
                 break;

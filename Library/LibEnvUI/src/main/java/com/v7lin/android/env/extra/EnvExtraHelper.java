@@ -47,7 +47,7 @@ public class EnvExtraHelper {
 		SkinFamily currSkinFamily = bridge.getSkinFamily();
 
 		// 读取默认皮肤参数
-		SkinFamily defaultSkinFamily = new SkinFamily("", context.getPackageName(), context.getResources(), context.getResources());
+		SkinFamily defaultSkinFamily = new SkinFamily("", context.getPackageName(), bridge.getOriginalRes(), bridge.getOriginalRes());
 		skinDatas.add(creator.createFrom(context, defaultSkinFamily, currSkinFamily));
 
 		// 读取skin文件夹下皮肤参数
@@ -55,7 +55,7 @@ public class EnvExtraHelper {
 		if (skinFiles != null && skinFiles.length > 0) {
 			for (File skinFile : skinFiles) {
 				String skinPath = skinFile.getAbsolutePath();
-				SkinFamily skinFamily = EnvResManager.getGlobal().getTopLevelSkinFamily(context, skinPath);
+				SkinFamily skinFamily = EnvResManager.getGlobal().getTopLevelSkinFamily(context, bridge.getOriginalRes(), skinPath);
 				skinDatas.add(creator.createFrom(context, skinFamily, currSkinFamily));
 			}
 		}

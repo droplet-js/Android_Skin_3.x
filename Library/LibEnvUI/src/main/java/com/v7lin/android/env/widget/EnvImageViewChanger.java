@@ -35,7 +35,7 @@ public class EnvImageViewChanger<IV extends ImageView, IVC extends XImageViewCal
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mSrcEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.src), allowSysRes);
         array.recycle();
     }
@@ -46,7 +46,7 @@ public class EnvImageViewChanger<IV extends ImageView, IVC extends XImageViewCal
         switch (attr) {
             case android.R.attr.src: {
                 EnvRes res = new EnvRes(resid);
-                mSrcEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mSrcEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleSrc(view, call);
                 break;

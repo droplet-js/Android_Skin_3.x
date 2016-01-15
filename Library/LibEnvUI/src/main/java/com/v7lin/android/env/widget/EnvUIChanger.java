@@ -41,6 +41,10 @@ public abstract class EnvUIChanger<UI, UIC> {
         return mContext;
     }
 
+    protected final Resources getOriginalRes() {
+        return mEnvResBridge.getOriginalRes();
+    }
+
     protected final CharSequence getText(int id) throws Resources.NotFoundException {
         return mEnvResBridge.getText(id);
     }

@@ -8,10 +8,8 @@ import java.util.Arrays;
 import android.content.Context;
 import android.content.res.Resources.NotFoundException;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.v7lin.android.env.EnvRes;
 import com.v7lin.android.env.EnvTypedArray;
@@ -63,7 +61,7 @@ public class EnvViewChanger<V extends View, VC extends XViewCall> extends EnvUIC
 
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mBackgroundEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.background), allowSysRes);
         mForegroundEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.foreground), allowSysRes);
 
@@ -82,14 +80,14 @@ public class EnvViewChanger<V extends View, VC extends XViewCall> extends EnvUIC
         switch (attr) {
             case android.R.attr.background: {
                 EnvRes res = new EnvRes(resid);
-                mBackgroundEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mBackgroundEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleBackground(view, call);
                 break;
             }
             case android.R.attr.foreground: {
                 EnvRes res = new EnvRes(resid);
-                mForegroundEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mForegroundEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleForeground(view, call);
                 break;

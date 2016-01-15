@@ -35,7 +35,7 @@ public class EnvCheckedTextViewChanger<CTV extends CheckedTextView, CTVC extends
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mCheckMarkEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.checkMark), allowSysRes);
         array.recycle();
     }
@@ -46,7 +46,7 @@ public class EnvCheckedTextViewChanger<CTV extends CheckedTextView, CTVC extends
         switch (attr) {
             case android.R.attr.checkMark: {
                 EnvRes res = new EnvRes(resid);
-                mCheckMarkEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mCheckMarkEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCheckMarkDrawable(view, call);
                 break;

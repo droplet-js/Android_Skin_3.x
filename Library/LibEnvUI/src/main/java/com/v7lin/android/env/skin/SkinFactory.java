@@ -18,7 +18,7 @@ public class SkinFactory {
 	private static final SkinCreator SKIN_CREATOR = new SkinCreator() {
 
 		@Override
-		public SkinFamily createFrom(Context context, String skinPath) {
+		public SkinFamily createFrom(Context context, Resources originalRes, String skinPath) {
 			SkinFamily family = null;
 			try {
 				PackageManager manager = context.getPackageManager();
@@ -34,7 +34,7 @@ public class SkinFactory {
 				// 所以可以不用EnvThirdResources
 				Resources skinRes = new Resources(skinAsset, context.getResources().getDisplayMetrics(), context.getResources().getConfiguration());
 
-				family = new SkinFamily(skinPath, skinPkg, skinRes, context.getResources());
+				family = new SkinFamily(skinPath, skinPkg, skinRes, originalRes);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -72,10 +72,10 @@ public class SkinFactory {
 		return isValid;
 	}
 
-	public static SkinFamily makeSkin(Context context, String skinPath) {
+	public static SkinFamily makeSkin(Context context, Resources originalRes, String skinPath) {
 		SkinFamily family = null;
 		if (!TextUtils.isEmpty(skinPath)) {
-			family = SKIN_CREATOR.createFrom(context, skinPath);
+			family = SKIN_CREATOR.createFrom(context, originalRes, skinPath);
 		}
 		return family;
 	}

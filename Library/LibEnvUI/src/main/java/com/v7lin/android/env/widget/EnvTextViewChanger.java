@@ -74,7 +74,7 @@ public class EnvTextViewChanger<TV extends TextView, TVC extends XTextViewCall> 
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mDrawableLeftEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.drawableLeft), allowSysRes);
         mDrawableTopEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.drawableTop), allowSysRes);
         mDrawableRightEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.drawableRight), allowSysRes);
@@ -82,7 +82,7 @@ public class EnvTextViewChanger<TV extends TextView, TVC extends XTextViewCall> 
 
         EnvRes textAppearanceEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.textAppearance), allowSysRes);
         if (textAppearanceEnvRes != null) {
-            EnvTypedArray textAppearanceArray = EnvTypedArray.obtainStyledAttributes(getContext(), textAppearanceEnvRes.getResid(), ATTRS_TEXT);
+            EnvTypedArray textAppearanceArray = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), textAppearanceEnvRes.getResid(), ATTRS_TEXT);
 
             mTextColorHighlightEnvRes = textAppearanceArray.getEnvRes(Arrays.binarySearch(ATTRS_TEXT, android.R.attr.textColorHighlight), allowSysRes);
             mTextColorEnvRes = textAppearanceArray.getEnvRes(Arrays.binarySearch(ATTRS_TEXT, android.R.attr.textColor), allowSysRes);
@@ -105,7 +105,7 @@ public class EnvTextViewChanger<TV extends TextView, TVC extends XTextViewCall> 
         super.onApplyAttr(view, call, attr, resid, allowSysRes);
         switch (attr) {
             case android.R.attr.textAppearance: {
-                EnvTypedArray textAppearanceArray = EnvTypedArray.obtainStyledAttributes(getContext(), resid, ATTRS_TEXT);
+                EnvTypedArray textAppearanceArray = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), resid, ATTRS_TEXT);
 
                 mTextColorHighlightEnvRes = textAppearanceArray.getEnvRes(Arrays.binarySearch(ATTRS_TEXT, android.R.attr.textColorHighlight), mTextColorHighlightEnvRes, allowSysRes);
                 mTextColorEnvRes = textAppearanceArray.getEnvRes(Arrays.binarySearch(ATTRS_TEXT, android.R.attr.textColor), mTextColorEnvRes, allowSysRes);
@@ -119,28 +119,28 @@ public class EnvTextViewChanger<TV extends TextView, TVC extends XTextViewCall> 
             }
             case android.R.attr.drawableLeft: {
                 EnvRes res = new EnvRes(resid);
-                mDrawableLeftEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mDrawableLeftEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableTop: {
                 EnvRes res = new EnvRes(resid);
-                mDrawableTopEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mDrawableTopEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableRight: {
                 EnvRes res = new EnvRes(resid);
-                mDrawableRightEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mDrawableRightEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCompoundDrawable(view, call);
                 break;
             }
             case android.R.attr.drawableBottom: {
                 EnvRes res = new EnvRes(resid);
-                mDrawableBottomEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mDrawableBottomEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleCompoundDrawable(view, call);
                 break;

@@ -42,7 +42,7 @@ public class EnvExpandableListViewChanger<ELV extends ExpandableListView, ELVC e
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
 
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mGroupIndicatorEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.groupIndicator), allowSysRes);
         mChildIndicatorEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.childIndicator), allowSysRes);
         mChildDividerEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.childDivider), allowSysRes);
@@ -55,21 +55,21 @@ public class EnvExpandableListViewChanger<ELV extends ExpandableListView, ELVC e
         switch (attr) {
             case android.R.attr.groupIndicator: {
                 EnvRes res = new EnvRes(resid);
-                mGroupIndicatorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mGroupIndicatorEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleGroupIndicator(view, call);
                 break;
             }
             case android.R.attr.childIndicator: {
                 EnvRes res = new EnvRes(resid);
-                mChildIndicatorEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mChildIndicatorEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleChildIndicator(view, call);
                 break;
             }
             case android.R.attr.childDivider: {
                 EnvRes res = new EnvRes(resid);
-                mChildDividerEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mChildDividerEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleChildDivider(view, call);
                 break;

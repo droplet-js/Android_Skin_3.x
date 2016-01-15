@@ -40,7 +40,7 @@ public class EnvProgressBarChanger<PB extends ProgressBar, PBC extends XProgress
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mIndeterminateDrawableEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.indeterminateDrawable), allowSysRes);
         mProgressDrawableEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.progressDrawable), allowSysRes);
         array.recycle();
@@ -52,14 +52,14 @@ public class EnvProgressBarChanger<PB extends ProgressBar, PBC extends XProgress
         switch (attr) {
             case android.R.attr.indeterminateDrawable: {
                 EnvRes res = new EnvRes(resid);
-                mIndeterminateDrawableEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mIndeterminateDrawableEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleIndeterminateDrawable(view, call);
                 break;
             }
             case android.R.attr.progressDrawable: {
                 EnvRes res = new EnvRes(resid);
-                mProgressDrawableEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mProgressDrawableEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleProgressDrawable(view, call);
                 break;

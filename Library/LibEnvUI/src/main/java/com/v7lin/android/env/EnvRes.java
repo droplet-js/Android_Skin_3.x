@@ -1,6 +1,7 @@
 package com.v7lin.android.env;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 /**
@@ -26,9 +27,9 @@ public class EnvRes {
 		return resid > 0;
 	}
 
-	public boolean isValid(Context context, boolean allowSysRes) {
+	public boolean isValid(Context context, Resources originalRes, boolean allowSysRes) {
 		if (isValid()) {
-			String packageName = context.getResources().getResourcePackageName(getResid());
+			String packageName = originalRes.getResourcePackageName(getResid());
 			// MIUI上替换EditText的菜单Drawable会出问题，故而这里将替换系统Drawable资源排除
 			if (allowSysRes || TextUtils.equals(packageName, context.getPackageName())) {
 				return true;

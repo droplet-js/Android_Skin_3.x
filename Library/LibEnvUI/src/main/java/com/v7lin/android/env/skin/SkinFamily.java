@@ -1,5 +1,6 @@
 package com.v7lin.android.env.skin;
 
+import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -96,6 +97,7 @@ public class SkinFamily {
 		}
 	}
 
+	@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 	public Drawable getDrawableForDensity(int id, int density, Resources.Theme theme) throws Resources.NotFoundException {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {

@@ -65,6 +65,10 @@ public class EnvResBridge {
         }
     }
 
+    public Resources getOriginalRes() {
+        return mOriginalRes;
+    }
+
     public void setSystemResMap(SystemResMap systemResMap) {
         mSystemResMap = systemResMap != null ? systemResMap : NullResMap.getInstance();
     }
@@ -72,7 +76,7 @@ public class EnvResBridge {
     private synchronized void ensureSkinFamily() {
         if (mInitSkin.compareAndSet(false, true) || mEnvResManager.isSkinChanged(mContext, mSkinPath)) {
             mSkinPath = mEnvResManager.getSkinPath(mContext);
-            mSkinFamily = mEnvResManager.getSkinFamily(mContext);
+            mSkinFamily = mEnvResManager.getSkinFamily(mContext, mOriginalRes);
         }
     }
 

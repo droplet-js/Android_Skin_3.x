@@ -35,7 +35,7 @@ public class EnvListViewChanger<LV extends ListView, LVC extends XListViewCall> 
     @Override
     protected void onApplyStyle(AttributeSet attrs, int defStyleAttr, int defStyleRes, boolean allowSysRes) {
         super.onApplyStyle(attrs, defStyleAttr, defStyleRes, allowSysRes);
-        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), attrs, ATTRS, defStyleAttr, defStyleRes);
+        EnvTypedArray array = EnvTypedArray.obtainStyledAttributes(getContext(), getOriginalRes(), attrs, ATTRS, defStyleAttr, defStyleRes);
         mDividerEnvRes = array.getEnvRes(Arrays.binarySearch(ATTRS, android.R.attr.divider), allowSysRes);
         array.recycle();
     }
@@ -46,7 +46,7 @@ public class EnvListViewChanger<LV extends ListView, LVC extends XListViewCall> 
         switch (attr) {
             case android.R.attr.divider: {
                 EnvRes res = new EnvRes(resid);
-                mDividerEnvRes = res.isValid(getContext(), allowSysRes) ? res : null;
+                mDividerEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
 //                scheduleDivider(view, call);
                 break;

@@ -3,6 +3,7 @@ package com.v7lin.android.env;
 import java.io.File;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.TextUtils;
 
 import com.v7lin.android.env.font.FontFactory;
@@ -35,8 +36,8 @@ public class EnvResManager {
 		mSkinChecker = checker != null ? checker : NullSkinChecker.getInstance();
 	}
 
-	public SkinFamily getSkinFamily(Context context) {
-		return getTopLevelSkinFamily(context, getSkinPath(context));
+	public SkinFamily getSkinFamily(Context context, Resources originalRes) {
+		return getTopLevelSkinFamily(context, originalRes, getSkinPath(context));
 	}
 
 	public String getSkinPath(Context context) {
@@ -52,13 +53,13 @@ public class EnvResManager {
 		return !TextUtils.equals(compareSkinPath, skinPath);
 	}
 
-	public synchronized SkinFamily getTopLevelSkinFamily(Context context, String skinPath) {
+	public synchronized SkinFamily getTopLevelSkinFamily(Context context, Resources originalRes, String skinPath) {
 		SkinFamily skinFamily = null;
 		if (!TextUtils.isEmpty(skinPath)) {
 			if (isSkinPathValid(context, skinPath)) {
 				skinFamily = EnvResCache.getInstance().getActiveSkinFamily(skinPath);
 				if (!SkinFactory.isValid(skinFamily)) {
-					skinFamily = SkinFactory.makeSkin(context, skinPath);
+					skinFamily = SkinFactory.makeSkin(context, originalRes, skinPath);
 					EnvResCache.getInstance().putActiveSkinFamily(skinPath, skinFamily);
 				}
 			} else {
@@ -67,7 +68,7 @@ public class EnvResManager {
 		}
 		if (skinFamily == null) {
 			if (mDefaultSkinFamily == null) {
-				mDefaultSkinFamily = new SkinFamily("", context.getPackageName(), context.getResources(), context.getResources());
+				mDefaultSkinFamily = new SkinFamily("", context.getPackageName(), originalRes, originalRes);
 			}
 			skinFamily = mDefaultSkinFamily;
 		}
