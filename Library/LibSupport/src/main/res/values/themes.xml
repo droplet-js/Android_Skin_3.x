@@ -16,7 +16,7 @@
         <item name="android:textColorSecondary">@color/secondary_text</item>
         <item name="icon">@color/icons</item>
         <item name="divider">@color/divider</item>
-        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowBackground">@color/windowBackgroundColor</item>
 
         <item name="toolbarStyle">@style/Widget.Style.Design.ToolBar</item>
     </style>

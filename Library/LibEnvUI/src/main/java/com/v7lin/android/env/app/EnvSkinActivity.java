@@ -23,6 +23,8 @@ import com.v7lin.android.env.widget.EnvViewParams;
 import com.v7lin.android.env.widget.XActivityCall;
 import com.v7lin.android.env.widget.XViewCall;
 
+import java.lang.reflect.Field;
+
 /**
  *
  *
@@ -43,19 +45,29 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 
 	private EnvResBridge mEnvResBridge;
 
-	private EnvSkinResourcesWrapper mEnvSkinResourcesWrapper;
-
 	private EnvUIChanger<Activity, XActivityCall> mEnvUIChanger;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
+		// 反射替换 Resources
+		ensureEnvUIBridge(newBase);
 		super.attachBaseContext(newBase);
-		ensureEnvUIBridge();
 	}
 
-	private void ensureEnvUIBridge() {
+	private void ensureEnvUIBridge(Context newBase) {
 		if (mEnvResBridge == null) {
-			mEnvResBridge = new EnvResBridge(getBaseContext(), super.getResources(), EnvResManager.getGlobal());
+			mEnvResBridge = new EnvResBridge(newBase, newBase.getResources(), EnvResManager.getGlobal());
+			Resources skinResourcesWrapper = new EnvSkinResourcesWrapper(newBase.getResources(), mEnvResBridge);
+
+			try {
+				Field mResourcesField = newBase.getClass().getDeclaredField("mResources");
+				mResourcesField.setAccessible(true);
+				mResourcesField.set(newBase, skinResourcesWrapper);
+			} catch (NoSuchFieldException e) {
+				//e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				//e.printStackTrace();
+			}
 		}
 	}
 
@@ -67,14 +79,6 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 		if (mEnvResBridge != null) {
 			mEnvResBridge.setSystemResMap(systemResMap);
 		}
-	}
-
-	@Override
-	public Resources getResources() {
-		if (mEnvSkinResourcesWrapper == null) {
-			mEnvSkinResourcesWrapper = new EnvSkinResourcesWrapper(super.getResources(), getEnvResBridge());
-		}
-		return mEnvSkinResourcesWrapper;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import com.v7lin.android.env.EnvResManager;
 import com.v7lin.android.env.impl.SharedPrefSetup;
 import com.v7lin.android.env.impl.VerSkinChecker;
 
-public class EnvAppConfig extends Application {
+public class EnvSkinConfig extends Application {
 
     @Override
     public void onCreate() {

@@ -1,5 +1,6 @@
 package com.v7lin.android.env;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -179,6 +180,7 @@ public class EnvResBridge {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     public Drawable getDrawableForDensity(int id, int density, Resources.Theme theme) throws Resources.NotFoundException {
         ensureSkinFamily();
         final EnvRes mapping = mappingSystemRes(id);

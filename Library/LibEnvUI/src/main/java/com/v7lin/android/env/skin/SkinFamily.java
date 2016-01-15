@@ -37,6 +37,7 @@ public class SkinFamily {
 	private EnvRes mappingSkinRes(int id) {
 		final String typeName = mOriginalRes.getResourceTypeName(id);
 		final String entryName = mOriginalRes.getResourceEntryName(id);
+//		Log.e("TAG", "typeName: " + typeName + "; entryName: " + entryName + ".");
 		final int mappingid = mSkinRes.getIdentifier(entryName, typeName, mSkinPkg/*packageName*/);
 		return new EnvRes(mappingid);
 	}
