@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.v7lin.android.env.extra.EnvExtraHelper;
 import com.v7lin.android.env.extra.SkinFilter;
 import com.v7lin.android.env.impl.SharedPrefSetup;
+import com.v7lin.android.env.skin.SkinFamily;
 import com.v7lin.android.os.env.PathUtils;
 import com.v7lin.android.support.app.SkinData;
 import com.v7lin.android.support.app.SkinExtraCreator;
@@ -28,10 +29,14 @@ public class MainActivity extends SupportActivity {
 
         请先将 {Project}/Library/LibSkin/skin 下的所有 ***.skin 拷贝到手机设备存储（或SD卡存储）中的 /v7lin/skin 文件夹下，并注释这句话。
 
-        final List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, new SkinExtraCreator());
+        SkinExtraCreator skinExtraCreator = new SkinExtraCreator();
+        final List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, skinExtraCreator);
+
+        SkinFamily currSkinFamily = getEnvResBridge().getSkinFamily();
+        SkinData currSkinData = skinExtraCreator.createFrom(this, currSkinFamily, currSkinFamily);
 
         final TextView changeSkin = (TextView) findViewById(R.id.change_skin);
-        changeSkin.setText(getEnvResBridge().getText(R.string.skin_name));
+        changeSkin.setText(currSkinData.getSkinName());
         changeSkin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
