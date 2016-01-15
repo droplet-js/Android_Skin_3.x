@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -85,21 +86,31 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 				LayoutInflater inflater = LayoutInflater.from(this);
 				try {
 					view = inflater.createView(transferName, null, attrs);
+				} catch (InflateException e) {
+					// In this case we want to let the base class take a crack at it.
 				} catch (ClassNotFoundException e) {
+					// In this case we want to let the base class take a crack at it.
+				} catch (Exception e) {
 					// In this case we want to let the base class take a crack at it.
 				}
 			}
 
 			if (view == null) {
-				LayoutInflater inflater = LayoutInflater.from(this);
-				for (String prefix : sClassPrefixList) {
-					try {
-						view = inflater.createView(name, prefix, attrs);
-						if (view != null) {
-							break;
+				if (name.indexOf(".") == -1) {
+					LayoutInflater inflater = LayoutInflater.from(this);
+					for (String prefix : sClassPrefixList) {
+						try {
+							view = inflater.createView(name, prefix, attrs);
+							if (view != null) {
+								break;
+							}
+						} catch (InflateException e) {
+							// In this case we want to let the base class take a crack at it.
+						} catch (ClassNotFoundException e) {
+							// In this case we want to let the base class take a crack at it.
+						} catch (Exception e) {
+							// In this case we want to let the base class take a crack at it.
 						}
-					} catch (ClassNotFoundException e) {
-						// In this case we want to let the base class take a crack at it.
 					}
 				}
 			}

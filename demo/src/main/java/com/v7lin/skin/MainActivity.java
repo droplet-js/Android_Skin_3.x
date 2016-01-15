@@ -26,6 +26,8 @@ public class MainActivity extends SupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        请先将 {Project}/Library/LibSkin/skin 下的所有 ***.skin 拷贝到手机设备存储（或SD卡存储）中的 /v7lin/skin 文件夹下，并注释这句话。
+
         final List<SkinData> skinDatas = EnvExtraHelper.loadSkinDatas(this, getEnvResBridge(), PathUtils.getSkinDir(this), SkinFilter.DEFAULT_SKIN_FILTER, new SkinExtraCreator());
 
         final TextView changeSkin = (TextView) findViewById(R.id.change_skin);
@@ -43,7 +45,7 @@ public class MainActivity extends SupportActivity {
         findViewById(R.id.change_color).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeSkin.setBackgroundResource(i++ % 2 == 1 ? R.color.primary :R.color.primary_dark);
+                changeSkin.setBackgroundResource(i++ % 2 == 1 ? R.color.primary : R.color.primary_dark);
             }
         });
     }
