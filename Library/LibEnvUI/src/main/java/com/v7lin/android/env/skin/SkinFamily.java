@@ -5,11 +5,12 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 
 import com.v7lin.android.env.EnvRes;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @SuppressWarnings("deprecation")
 public class SkinFamily {
@@ -19,12 +20,21 @@ public class SkinFamily {
 	private Resources mSkinRes;
 	private Resources mOriginalRes;
 
-	public SkinFamily(String skinPath, String skinPkg, Resources skinRes, Resources original) {
+	private final Resources.Theme mSkinTheme;
+
+	public SkinFamily(String skinPath, String skinPkg, Resources skinRes, Resources originalRes) {
 		super();
 		mSkinPath = skinPath;
 		mSkinPkg = skinPkg;
 		mSkinRes = skinRes;
-		mOriginalRes = original;
+		mOriginalRes = originalRes;
+
+		if (!mSkinRes.equals(mOriginalRes)) {
+			mSkinTheme = mSkinRes.newTheme();
+			mSkinTheme.applyStyle(android.R.style.Theme, true);
+		} else {
+			mSkinTheme = null;
+		}
 	}
 
 	public String getSkinPath() {
@@ -41,6 +51,18 @@ public class SkinFamily {
 //		Log.e("TAG", "typeName: " + typeName + "; entryName: " + entryName + ".");
 		final int mappingid = mSkinRes.getIdentifier(entryName, typeName, mSkinPkg/*packageName*/);
 		return new EnvRes(mappingid);
+	}
+
+	private Resources.Theme transferTheme(Resources.Theme theme) {
+		Resources.Theme transferTheme = null;
+		if (theme != null) {
+			if (mSkinRes.equals(mOriginalRes)) {
+				transferTheme = theme;
+			} else {
+				transferTheme = mSkinTheme;
+			}
+		}
+		return transferTheme;
 	}
 
 	public boolean hasValue(int id) {
@@ -88,7 +110,7 @@ public class SkinFamily {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				return mSkinRes.getDrawable(mapping.getResid(), theme);
+				return mSkinRes.getDrawable(mapping.getResid(), transferTheme(theme));
 			} else {
 				return mSkinRes.getDrawable(mapping.getResid());
 			}
@@ -102,7 +124,7 @@ public class SkinFamily {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-				return mSkinRes.getDrawableForDensity(mapping.getResid(), density, theme);
+				return mSkinRes.getDrawableForDensity(mapping.getResid(), density, transferTheme(theme));
 			} else {
 				return mSkinRes.getDrawableForDensity(mapping.getResid(), density);
 			}
@@ -115,7 +137,7 @@ public class SkinFamily {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				return mSkinRes.getColor(mapping.getResid(), theme);
+				return mSkinRes.getColor(mapping.getResid(), transferTheme(theme));
 			} else {
 				return mSkinRes.getColor(mapping.getResid());
 			}
@@ -128,7 +150,7 @@ public class SkinFamily {
 		EnvRes mapping = mappingSkinRes(id);
 		if (mapping != null && mapping.isValid()) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				return mSkinRes.getColorStateList(mapping.getResid(), theme);
+				return mSkinRes.getColorStateList(mapping.getResid(), transferTheme(theme));
 			} else {
 				return mSkinRes.getColorStateList(mapping.getResid());
 			}

@@ -23,12 +23,20 @@ public class EnvTypedArray {
 	}
 
 	public EnvRes getEnvRes(int index, boolean allowSysRes) {
-		return getEnvRes(index, null, allowSysRes);
+		return getEnvRes(index, 0, null, allowSysRes);
+	}
+
+	public EnvRes getEnvRes(int index, int defValue, boolean allowSysRes) {
+		return getEnvRes(index, defValue, null, allowSysRes);
+	}
+
+	public EnvRes getEnvRes(int index, EnvRes defEnvRes, boolean allowSysRes) {
+		return getEnvRes(index, 0, defEnvRes, allowSysRes);
 	}
 	
-	public EnvRes getEnvRes(int index, EnvRes defEnvRes, boolean allowSysRes) {
+	public EnvRes getEnvRes(int index, int defValue, EnvRes defEnvRes, boolean allowSysRes) {
 		if (mWrapped.hasValue(index)) {
-			EnvRes res = new EnvRes(mWrapped.getResourceId(index, 0));
+			EnvRes res = new EnvRes(mWrapped.getResourceId(index, defValue));
 			return res.isValid(mContext, mOriginalRes, allowSysRes) ? res : null;
 		}
 		return defEnvRes;

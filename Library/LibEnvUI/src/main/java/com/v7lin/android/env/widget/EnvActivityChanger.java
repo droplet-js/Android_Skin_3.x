@@ -12,7 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @SuppressWarnings("deprecation")
 public class EnvActivityChanger<ACT extends Activity, ACTC extends XActivityCall> extends EnvUIChanger<ACT, ACTC> {
@@ -41,7 +41,15 @@ public class EnvActivityChanger<ACT extends Activity, ACTC extends XActivityCall
 
     @Override
     protected void onApplyAttr(ACT activity, ACTC call, int attr, int resid, boolean allowSysRes) {
+        switch (attr) {
+            case android.R.attr.windowBackground: {
+                EnvRes res = new EnvRes(resid);
+                mWindowBackgroundEnvRes = res.isValid(getContext(), getOriginalRes(), allowSysRes) ? res : null;
 
+//                scheduleWindowBackground(activity, call);
+                break;
+            }
+        }
     }
 
     @Override

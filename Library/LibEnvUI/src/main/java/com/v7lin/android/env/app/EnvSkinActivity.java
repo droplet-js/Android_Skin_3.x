@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.v7lin.android.app.SuperActivity;
 import com.v7lin.android.env.EnvResBridge;
 import com.v7lin.android.env.EnvResManager;
 import com.v7lin.android.env.EnvSkinResourcesWrapper;
@@ -28,18 +28,7 @@ import java.lang.reflect.Field;
 /**
  * @author v7lin E-mail:v7lin@qq.com
  */
-public class EnvSkinActivity extends SuperActivity implements XActivityCall {
-
-	private static final String[] sClassPrefixList = {
-			// widget
-			"android.widget.",
-			// webkit
-			"android.webkit.",
-			// view
-			"android.view.",
-			// app
-			"android.app."
-	};
+public class EnvSkinActivity extends Activity implements XActivityCall {
 
 	private EnvResBridge mEnvResBridge;
 	private EnvUIChanger<Activity, XActivityCall> mEnvUIChanger;
@@ -79,41 +68,25 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 	}
 
 	@Override
-	public View onCreateView(String name, Context context, AttributeSet attrs) {
-		View view = super.onCreateView(name, context, attrs);
-		if (view == null) {
-			String transferName = EnvViewMap.getInstance().transfer(name);
-			if (transferName.indexOf(".") > -1) {
-				LayoutInflater inflater = LayoutInflater.from(this);
-				try {
-					view = inflater.createView(transferName, null, attrs);
-				} catch (InflateException e) {
-					// In this case we want to let the base class take a crack at it.
-				} catch (ClassNotFoundException e) {
-					// In this case we want to let the base class take a crack at it.
-				} catch (Exception e) {
-					// In this case we want to let the base class take a crack at it.
-				}
-			}
+	public View onCreateView(final String name, final Context context, final AttributeSet attrs) {
+		View view = null;
 
-			if (view == null) {
-				if (name.indexOf(".") == -1) {
-					LayoutInflater inflater = LayoutInflater.from(this);
-					for (String prefix : sClassPrefixList) {
-						try {
-							view = inflater.createView(name, prefix, attrs);
-							if (view != null) {
-								break;
-							}
-						} catch (InflateException e) {
-							// In this case we want to let the base class take a crack at it.
-						} catch (ClassNotFoundException e) {
-							// In this case we want to let the base class take a crack at it.
-						} catch (Exception e) {
-							// In this case we want to let the base class take a crack at it.
-						}
-					}
-				}
+		// 转换视图
+		String viewName = name;
+		if (TextUtils.equals(viewName, "view")) {
+			viewName = attrs.getAttributeValue(null, "class");
+		}
+		String transferName = EnvViewMap.getInstance().transfer(viewName, true);
+		if (!TextUtils.isEmpty(transferName) && transferName.indexOf(".") > -1) {
+			LayoutInflater inflater = LayoutInflater.from(this);
+			try {
+				view = inflater.createView(transferName, null, attrs);
+			} catch (InflateException e) {
+				// In this case we want to let the base class take a crack at it.
+			} catch (ClassNotFoundException e) {
+				// In this case we want to let the base class take a crack at it.
+			} catch (Exception e) {
+				// In this case we want to let the base class take a crack at it.
 			}
 		}
 		if (view != null && view instanceof EnvCallback) {
@@ -124,6 +97,11 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 				changer.applyStyle(attrs, params.defStyleAttr, params.defStyleRes, view.isInEditMode());
 			}
 		}
+
+		if (view == null) {
+			view = super.onCreateView(name, context, attrs);
+		}
+
 		return view;
 	}
 
@@ -169,5 +147,12 @@ public class EnvSkinActivity extends SuperActivity implements XActivityCall {
 	@Override
 	public void scheduleBackgroundDrawable(Drawable background) {
 		getWindow().setBackgroundDrawable(background);
+	}
+
+	public void setWindowBackgroundResource(int resid) {
+		getWindow().setBackgroundDrawable(getEnvResBridge().getDrawable(resid, getTheme()));
+		if (mEnvUIChanger != null) {
+			mEnvUIChanger.applyAttr(this, this, android.R.attr.windowBackground, resid, false);
+		}
 	}
 }

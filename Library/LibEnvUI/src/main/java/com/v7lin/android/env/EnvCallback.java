@@ -6,7 +6,7 @@ import com.v7lin.android.env.widget.EnvUIChanger;
 import com.v7lin.android.env.widget.XViewCall;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 public interface EnvCallback<UI extends View, UIC extends XViewCall> {
 

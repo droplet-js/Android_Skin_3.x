@@ -14,7 +14,7 @@ import com.v7lin.android.env.EnvResBridge;
 /**
  * ProgressDrawable 中使用 ScaleDrawable，在小米 1 上显示不正常
  * 
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @SuppressWarnings("deprecation")
 public class CompatSeekBar extends SeekBar implements XAbsSeekBarCall, EnvCallback<AbsSeekBar, XAbsSeekBarCall> {

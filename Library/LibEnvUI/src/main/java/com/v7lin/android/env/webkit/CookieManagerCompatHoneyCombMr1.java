@@ -5,7 +5,7 @@ import android.os.Build;
 import android.webkit.CookieManager;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
 class CookieManagerCompatHoneyCombMr1 {

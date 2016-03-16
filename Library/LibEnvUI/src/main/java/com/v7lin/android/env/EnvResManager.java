@@ -6,10 +6,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
+import com.v7lin.android.env.extra.EnvExtraHelper;
 import com.v7lin.android.env.font.FontFactory;
 import com.v7lin.android.env.font.FontFamily;
 import com.v7lin.android.env.impl.NullEnvSetup;
-import com.v7lin.android.env.impl.NullSkinChecker;
+import com.v7lin.android.env.impl.SimpleSkinChecker;
 import com.v7lin.android.env.skin.SkinFactory;
 import com.v7lin.android.env.skin.SkinFamily;
 
@@ -19,7 +20,7 @@ import com.v7lin.android.env.skin.SkinFamily;
 public class EnvResManager {
 
 	private EnvSetup mEnvSetup = NullEnvSetup.getInstance();
-	private SkinChecker mSkinChecker = NullSkinChecker.getInstance();
+	private SkinChecker mSkinChecker = SimpleSkinChecker.NOT_ACCEPTED;
 
 	private SkinFamily mDefaultSkinFamily;
 	private FontFamily mDefaultFontFamily;
@@ -33,11 +34,11 @@ public class EnvResManager {
 	}
 
 	public void setSkinChecker(SkinChecker checker) {
-		mSkinChecker = checker != null ? checker : NullSkinChecker.getInstance();
+		mSkinChecker = checker != null ? checker : SimpleSkinChecker.NOT_ACCEPTED;
 	}
 
-	public SkinFamily getSkinFamily(Context context, Resources originalRes) {
-		return getTopLevelSkinFamily(context, originalRes, getSkinPath(context));
+	public SkinFamily getSkinFamily(Context context, EnvResBridge bridge) {
+		return getTopLevelSkinFamily(context, bridge, getSkinPath(context));
 	}
 
 	public String getSkinPath(Context context) {
@@ -53,13 +54,13 @@ public class EnvResManager {
 		return !TextUtils.equals(compareSkinPath, skinPath);
 	}
 
-	public synchronized SkinFamily getTopLevelSkinFamily(Context context, Resources originalRes, String skinPath) {
+	public synchronized SkinFamily getTopLevelSkinFamily(Context context, EnvResBridge bridge, String skinPath) {
 		SkinFamily skinFamily = null;
 		if (!TextUtils.isEmpty(skinPath)) {
 			if (isSkinPathValid(context, skinPath)) {
 				skinFamily = EnvResCache.getInstance().getActiveSkinFamily(skinPath);
 				if (!SkinFactory.isValid(skinFamily)) {
-					skinFamily = SkinFactory.makeSkin(context, originalRes, skinPath);
+					skinFamily = SkinFactory.makeSkin(context, bridge.getOriginalRes(), skinPath);
 					EnvResCache.getInstance().putActiveSkinFamily(skinPath, skinFamily);
 				}
 			} else {
@@ -68,7 +69,7 @@ public class EnvResManager {
 		}
 		if (skinFamily == null) {
 			if (mDefaultSkinFamily == null) {
-				mDefaultSkinFamily = new SkinFamily("", context.getPackageName(), originalRes, originalRes);
+				mDefaultSkinFamily = EnvExtraHelper.getDefaultSkinFamily(context, bridge);
 			}
 			skinFamily = mDefaultSkinFamily;
 		}

@@ -38,6 +38,12 @@
 -dontwarn com.android.internal.**
 -keep class com.android.internal.**
 
+# android
+-keep class org.apache.http.** { *; }
+-dontwarn org.apache.http.**
+-keep class android.net.http.** { *; }
+-dontwarn android.net.http.**
+
 # WebView 兼容 2.1 Ssl 验证
 -keep class * extends android.webkit.WebViewClient { *;}
 
@@ -46,5 +52,6 @@
 -keep interface * extends com.v7lin.android.env.webkit.JSAccessor { *;}
 -keep class * implements com.v7lin.android.env.webkit.JSAccessor { *;}
 
+# LibEnvUI
 -dontwarn com.v7lin.android.env.**
 -keep class com.v7lin.android.env.** { *;}

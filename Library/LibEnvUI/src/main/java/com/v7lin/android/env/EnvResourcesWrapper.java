@@ -23,6 +23,8 @@ import java.io.InputStream;
 /**
  * This extends Resources but delegates the calls to another Resources object. This enables
  * any customization done by some subclass of Resources to be also picked up.
+ *
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @SuppressWarnings("deprecation")
 class EnvResourcesWrapper extends Resources {

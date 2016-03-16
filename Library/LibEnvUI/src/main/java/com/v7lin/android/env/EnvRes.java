@@ -9,22 +9,22 @@ import android.text.TextUtils;
  */
 public class EnvRes {
 
-	private final int resid;
+	private final int mResid;
 
 	public EnvRes(int resid) {
 		super();
-		this.resid = resid;
+		mResid = resid;
 	}
 
 	public int getResid() {
-		return resid;
+		return mResid;
 	}
 
 	/**
 	 * 判断资源映射结果是否有效
 	 */
 	public boolean isValid() {
-		return resid > 0;
+		return mResid > 0;
 	}
 
 	public boolean isValid(Context context, Resources originalRes, boolean allowSysRes) {

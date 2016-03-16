@@ -5,7 +5,7 @@ import android.os.Build;
 import android.webkit.WebSettings;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 class WebSettingsCompatJellyBean {

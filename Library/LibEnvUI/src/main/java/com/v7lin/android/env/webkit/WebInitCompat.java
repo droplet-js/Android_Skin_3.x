@@ -12,7 +12,7 @@ import android.webkit.WebView;
 import com.v7lin.android.env.webkit.WebSettingsCompat.PluginStateCompat;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 @SuppressLint("InlinedApi")
 class WebInitCompat {

@@ -15,6 +15,9 @@ import com.v7lin.android.env.skin.SkinFamily;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * @author v7lin E-mail:v7lin@qq.com
+ */
 @SuppressWarnings("deprecation")
 public class EnvResBridge {
 
@@ -76,7 +79,7 @@ public class EnvResBridge {
     private synchronized void ensureSkinFamily() {
         if (mInitSkin.compareAndSet(false, true) || mEnvResManager.isSkinChanged(mContext, mSkinPath)) {
             mSkinPath = mEnvResManager.getSkinPath(mContext);
-            mSkinFamily = mEnvResManager.getSkinFamily(mContext, mOriginalRes);
+            mSkinFamily = mEnvResManager.getSkinFamily(mContext, this);
         }
     }
 
@@ -180,7 +183,7 @@ public class EnvResBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return mOriginalRes.getDrawable(resid, theme);
         } else {
-            return mOriginalRes.getDrawable(id);
+            return mOriginalRes.getDrawable(resid);
         }
     }
 
@@ -202,7 +205,7 @@ public class EnvResBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return mOriginalRes.getDrawableForDensity(resid, density, theme);
         } else {
-            return mOriginalRes.getDrawableForDensity(id, density);
+            return mOriginalRes.getDrawableForDensity(resid, density);
         }
     }
 

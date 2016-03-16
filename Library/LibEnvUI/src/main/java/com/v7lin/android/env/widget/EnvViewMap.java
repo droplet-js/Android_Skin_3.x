@@ -20,6 +20,7 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RatingBar;
@@ -35,14 +36,20 @@ import android.widget.ViewAnimator;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
+import com.v7lin.android.env.EnvCallback;
+
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author v7lin E-mail:v7lin@qq.com
+ */
 public class EnvViewMap {
     // 各类型视图的默认参数
     private static final Map<String, EnvViewParams> ENV_VIEW_PARAMS_MAP = new HashMap<String, EnvViewParams>();
     // 特殊需要转换兼容的视图
     private static final Map<String, String> ENV_VIEW_TRANSER_MAP = new HashMap<String, String>();
+    private static final Map<String, String> ENV_VIEW_TRANSER_MAP_V7_APP_COMPAT = new HashMap<String, String>();
 
     static {
         // 各类型视图的默认参数
@@ -62,6 +69,7 @@ public class EnvViewMap {
         ENV_VIEW_PARAMS_MAP.put(ImageView.class.getName(), new EnvViewParams(0, 0, false));
 //        ENV_VIEW_PARAMS_MAP.put(LinearLayout.class.getName(), new EnvViewParams(0, 0, false));// 可以忽略不计
         ENV_VIEW_PARAMS_MAP.put(ListView.class.getName(), new EnvViewParams(com.android.internal.R.attr.listViewStyle, 0, false));
+        ENV_VIEW_PARAMS_MAP.put(MultiAutoCompleteTextView.class.getName(), new EnvViewParams(com.android.internal.R.attr.autoCompleteTextViewStyle, 0, false));
         ENV_VIEW_PARAMS_MAP.put(ProgressBar.class.getName(), new EnvViewParams(com.android.internal.R.attr.progressBarStyle, 0, false));
         ENV_VIEW_PARAMS_MAP.put(RadioButton.class.getName(), new EnvViewParams(com.android.internal.R.attr.radioButtonStyle, 0, false));
         ENV_VIEW_PARAMS_MAP.put(RatingBar.class.getName(), new EnvViewParams(com.android.internal.R.attr.ratingBarStyle, 0, false));
@@ -78,11 +86,6 @@ public class EnvViewMap {
 //        ENV_VIEW_PARAMS_MAP.put(ViewFlipper.class.getName(), new EnvViewParams(0, 0, false));
         ENV_VIEW_PARAMS_MAP.put(ViewGroup.class.getName(), new EnvViewParams(0, 0, false));
 //        ENV_VIEW_PARAMS_MAP.put(ViewSwitcher.class.getName(), new EnvViewParams(0, 0, false));
-
-        // 自己定制的
-        ENV_VIEW_PARAMS_MAP.put(CompatNavigationBar.class.getName(), new EnvViewParams(0, 0, true));
-        ENV_VIEW_PARAMS_MAP.put(CompatStatusBar.class.getName(), new EnvViewParams(0, 0, true));
-
 
         // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- //
 
@@ -103,6 +106,7 @@ public class EnvViewMap {
         ENV_VIEW_TRANSER_MAP.put(ImageView.class.getSimpleName(), CompatImageView.class.getName());
         ENV_VIEW_TRANSER_MAP.put(LinearLayout.class.getSimpleName(), CompatLinearLayout.class.getName());
         ENV_VIEW_TRANSER_MAP.put(ListView.class.getSimpleName(), CompatListView.class.getName());
+        ENV_VIEW_TRANSER_MAP.put(MultiAutoCompleteTextView.class.getSimpleName(), CompatMultiAutoCompleteTextView.class.getName());
         ENV_VIEW_TRANSER_MAP.put(ProgressBar.class.getSimpleName(), CompatProgressBar.class.getName());
         ENV_VIEW_TRANSER_MAP.put(RadioButton.class.getSimpleName(), CompatRadioButton.class.getName());
         ENV_VIEW_TRANSER_MAP.put(RatingBar.class.getSimpleName(), CompatRatingBar.class.getName());
@@ -130,15 +134,32 @@ public class EnvViewMap {
         ENV_VIEW_TRANSER_MAP.put(clazz.getSimpleName(), compatClazz.getName());
     }
 
+    public void assetTranserV7AppCompat(Class<? extends View> clazz, Class<? extends View> compatClazz) {
+        ENV_VIEW_TRANSER_MAP_V7_APP_COMPAT.put(clazz.getSimpleName(), compatClazz.getName());
+    }
+
     public void assetThirdTranser(Class<? extends View> clazz, Class<? extends View> compatClazz) {
         ENV_VIEW_TRANSER_MAP.put(clazz.getName(), compatClazz.getName());
     }
 
-    public String transfer(String name) {
+    public String transfer(String name, boolean ignoreV7AppCompat) {
         String transferName = ENV_VIEW_TRANSER_MAP.get(name);
-        if (TextUtils.isEmpty(transferName)) {
-            transferName = name;
+        if (!TextUtils.isEmpty(transferName) && !ignoreV7AppCompat && ENV_VIEW_TRANSER_MAP_V7_APP_COMPAT.containsKey(name)) {
+            transferName = null;
+        } else {
+            try {
+                if (TextUtils.isEmpty(transferName) && name.indexOf(".") > -1 && EnvCallback.class.isAssignableFrom(Class.forName(name))) {
+                    transferName = name;
+                }
+            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+            }
         }
+        return transferName;
+    }
+
+    public String transferV7AppCompat(String name) {
+        String transferName = ENV_VIEW_TRANSER_MAP_V7_APP_COMPAT.get(name);
         return transferName;
     }
 

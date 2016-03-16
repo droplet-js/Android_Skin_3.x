@@ -3,7 +3,7 @@ package com.v7lin.android.env;
 import android.content.Context;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 public interface SystemResMap {
 

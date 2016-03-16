@@ -13,7 +13,7 @@ import com.v7lin.android.env.font.FontFamily;
 import com.v7lin.android.env.skin.SkinFamily;
 
 /**
- * @author v7lin Email:v7lin@qq.com
+ * @author v7lin E-mail:v7lin@qq.com
  */
 public class EnvExtraHelper {
 
@@ -40,6 +40,10 @@ public class EnvExtraHelper {
 		return fontDatas;
 	}
 
+	public static SkinFamily getDefaultSkinFamily(Context context, EnvResBridge bridge) {
+		return new SkinFamily("", context.getPackageName(), bridge.getOriginalRes(), bridge.getOriginalRes());
+	}
+
 	public static <SkinData> List<SkinData> loadSkinDatas(Context context, EnvResBridge bridge, File skinDir, FilenameFilter skinFilter, EnvExtraCreator<SkinData, SkinFamily> creator) {
 		ArrayList<SkinData> skinDatas = new ArrayList<SkinData>();
 
@@ -47,7 +51,7 @@ public class EnvExtraHelper {
 		SkinFamily currSkinFamily = bridge.getSkinFamily();
 
 		// 读取默认皮肤参数
-		SkinFamily defaultSkinFamily = new SkinFamily("", context.getPackageName(), bridge.getOriginalRes(), bridge.getOriginalRes());
+		SkinFamily defaultSkinFamily = EnvExtraHelper.getDefaultSkinFamily(context, bridge);
 		skinDatas.add(creator.createFrom(context, defaultSkinFamily, currSkinFamily));
 
 		// 读取skin文件夹下皮肤参数
@@ -55,7 +59,7 @@ public class EnvExtraHelper {
 		if (skinFiles != null && skinFiles.length > 0) {
 			for (File skinFile : skinFiles) {
 				String skinPath = skinFile.getAbsolutePath();
-				SkinFamily skinFamily = EnvResManager.getGlobal().getTopLevelSkinFamily(context, bridge.getOriginalRes(), skinPath);
+				SkinFamily skinFamily = EnvResManager.getGlobal().getTopLevelSkinFamily(context, bridge, skinPath);
 				skinDatas.add(creator.createFrom(context, skinFamily, currSkinFamily));
 			}
 		}

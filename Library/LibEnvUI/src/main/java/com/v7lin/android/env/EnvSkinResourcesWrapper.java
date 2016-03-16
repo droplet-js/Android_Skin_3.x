@@ -6,6 +6,9 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 
+/**
+ * @author v7lin E-mail:v7lin@qq.com
+ */
 public class EnvSkinResourcesWrapper extends EnvResourcesWrapper {
 
     private final EnvResBridge mEnvResBridge;

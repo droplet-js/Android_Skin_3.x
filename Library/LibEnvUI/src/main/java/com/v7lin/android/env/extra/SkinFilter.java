@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Locale;
 
+/**
+ * @author v7lin E-mail:v7lin@qq.com
+ */
 public class SkinFilter implements FilenameFilter {
 
     public static final String DEFAULT_SUFFIX = ".skin";
